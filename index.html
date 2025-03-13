@@ -8,7 +8,7 @@
       flex-direction: column;
       align-items: center;
       min-height: 100vh;
-      background: #f5f5f5; 
+      background: #f5f5f5; /* Off-white/grayish background */
       margin: 0;
       font-family: 'Times New Roman', Times, serif;
       padding: 20px;
@@ -16,15 +16,12 @@
 
     .header {
       width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      text-align: center;
       margin-bottom: 20px;
     }
 
     .logo {
-      width: 80px;
-      height: 80px;
+      /* Używamy oryginalnych wymiarów pliku – brak ustawiania width/height */
       cursor: pointer;
       object-fit: cover;
     }
@@ -32,7 +29,7 @@
     h1 {
       font-size: 3rem;
       margin-bottom: 40px;
-      text-transform: lowercase; 
+      text-transform: lowercase; /* Lowercase title */
     }
 
     .events-table {
@@ -77,7 +74,7 @@
       flex-direction: column;
       align-items: center;
       flex: 1;
-      max-width: 600px;
+      max-width: 300px; /* zmniejszony kontener */
       position: relative;
     }
 
@@ -115,10 +112,10 @@
 
     .stretchable-container {
       position: relative;
-      width: 300px;
-      height: 400px;
+      width: 150px; /* zmniejszony kontener */
+      height: 200px; /* zmniejszony kontener */
       cursor: ns-resize;
-      margin-left: 50px;
+      margin-left: 20px; /* zmniejszona przestrzeń */
     }
 
     .stretchable-img {
@@ -142,9 +139,8 @@
     <a href="https://www.instagram.com/bogdansekalski" target="_blank">
       <img src="doublecolor.jpg" alt="Logo" class="logo">
     </a>
-    <div></div> <!-- odstep -->
   </div>
-  
+
   <h1>bogdan sėkalski</h1>
   
   <table class="events-table">
@@ -156,7 +152,9 @@
     <tbody>
       <tr>
         <td>09/04/25 WARSZAWA</td>
-        <td><a href="https://www.facebook.com/events/481479724902713/?post_id=482209804829705&acontext=%7B%22event_action_history%22%3A%5B%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment_media%22%2C%22surface%22%3A%22newsfeed%22%7D%5D%2C%22ref_notif_type%22%3Anull%7D" target="_blank">EVENT</a></td>
+        <td>
+          <a href="https://www.facebook.com/events/481479724902713/?post_id=482209804829705&acontext=%7B%22event_action_history%22%3A%5B%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment_media%22%2C%22surface%22%3A%22newsfeed%22%7D%5D%2C%22ref_notif_type%22%3Anull%7D" target="_blank">EVENT</a>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -362,7 +360,7 @@
       }
     }
 
-    // pitch strecz
+    // Stretchable image variables and handlers
     const stretchableContainer = document.querySelector('.stretchable-container');
     const stretchableImg = document.querySelector('.stretchable-img');
     let isStretching = false;
@@ -424,14 +422,14 @@
     document.addEventListener('mouseup', handleDragEnd);
     document.addEventListener('touchend', handleDragEnd);
 
-    // play/pause
+    // Add click event to play/pause
     turntable.addEventListener('click', () => {
       if (!isDragging) {
         togglePlay();
       }
     });
 
-    // stretch image
+    // Stretchable image event listeners
     stretchableContainer.addEventListener('mousedown', handleStretchStart);
     stretchableContainer.addEventListener('touchstart', handleStretchStart);
     document.addEventListener('mousemove', handleStretchMove);
@@ -439,7 +437,7 @@
     document.addEventListener('mouseup', handleStretchEnd);
     document.addEventListener('touchend', handleStretchEnd);
 
-    // Prevent drag 
+    // Prevent default drag behavior
     stretchableImg.addEventListener('dragstart', (e) => {
       e.preventDefault();
     });
