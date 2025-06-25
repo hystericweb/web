@@ -42,15 +42,15 @@
       margin-top: 5px;
     }
     
-    /* Ellipse mask – shows content only inside the ellipse, positioned on the right */
+    /* Ellipse mask – shows content only inside the ellipse, centered */
     .mask {
       position: absolute;
       top: 50%;
-      right: 0;
-      width: 50vw;
+      left: 50%;
+      width: 100vw;
       height: 100vh;
-      transform: translateY(-50%);
-      clip-path: ellipse(50% 25% at 100% 50%);
+      transform: translate(-50%, -50%);
+      clip-path: ellipse(25% 25% at 50% 50%);
       overflow: hidden;
       z-index: 1;
     }
@@ -72,7 +72,7 @@
     .character {
       position: absolute;
       bottom: 20px;
-      left: 75%;
+      left: 50%;
       transform: translateX(-50%);
       z-index: 3;
     }
@@ -92,7 +92,7 @@
     #messageDisplay {
       position: absolute;
       top: 80%;
-      left: 75%;
+      left: 50%;
       transform: translateX(-50%);
       font-size: 3em;
       text-align: center;
@@ -128,14 +128,14 @@
         padding: 0 5%;
       }
       .mask {
-        width: 70vw;
-        clip-path: ellipse(70% 25% at 100% 50%);
+        width: 100vw;
+        clip-path: ellipse(25% 25% at 50% 50%);
       }
       .character {
-        left: 85%;
+        left: 50%;
       }
       #messageDisplay {
-        left: 85%;
+        left: 50%;
       }
     }
   </style>
@@ -204,8 +204,8 @@
     
     // Character animation (2.png) following pointer/mouse position
     const character = document.getElementById('character');
-    let targetX = windowWidth * 0.75;
-    let currentX = windowWidth * 0.75;
+    let targetX = windowWidth / 2;
+    let currentX = windowWidth / 2;
     let animationInterval = null;
     let isAnimating = false;
     
