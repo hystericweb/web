@@ -1,89 +1,412 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
-  <title>bogdan sėkalski</title>
+  <meta charset="UTF-8">
+  <title>hysteric web</title>
   <style>
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      background: #f5f5f5;
+    /* Global settings – light grey background, custom cursor, disable touch scrolling */
+    html, body {
       margin: 0;
-      font-family: 'Times New Roman', Times, serif;
-      padding: 20px;
-    }
-
-    .header {
+      padding: 0;
+      overflow: hidden;
       width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
+      height: 100%;
+      background-color: #d3d3d3;
+      /* Domyślny kursor */
+      cursor: url('cursor1.png'), auto;
+      touch-action: none;
     }
-
-    .logo {
-      cursor: pointer;
-      object-fit: cover;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 40px;
-      text-transform: lowercase;
-    }
-
-    .events-table {
-      border-collapse: collapse;
-      width: 80%;
-      max-width: 600px;
-      margin-bottom: 40px;
-    }
-
-    .events-table th, 
-    .events-table td {
-      border: 2px solid black;
-      padding: 12px;
-      text-align: left;
-    }
-
-    .events-table th {
-      background-color: black;
-      color: white;
-    }
-
-    .events-table a {
+    
+    /* Top left text */
+    .top-left-text {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      font-family: "Apple Garamond", serif;
       color: #000;
-      text-decoration: none;
-      font-weight: bold;
     }
-
-    .events-table a:hover {
-      text-decoration: underline;
+    
+    .hysteric {
+      font-size: 2.5em;
+      font-weight: normal;
+      margin: 0;
+      line-height: 1;
+    }
+    
+    .silly {
+      font-size: 1.8em;
+      font-style: italic;
+      margin: 0;
+      line-height: 1;
+      margin-top: 5px;
+    }
+    
+    /* Ellipse mask – shows content only inside the ellipse, positioned on the right */
+    .mask {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 50vw;
+      height: 100vh;
+      transform: translateY(-50%);
+      clip-path: ellipse(50% 25% at 100% 50%);
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    /* Background with 1.png texture */
+    .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background-image: url('1.png');
+      background-repeat: repeat;
+      background-size: 100vw 100vh;
+      background-position: 0 0;
+    }
+    
+    /* Character container (2.png) with animation */
+    .character {
+      position: absolute;
+      bottom: 20px;
+      left: 75%;
+      transform: translateX(-50%);
+      z-index: 3;
+    }
+    .character img {
+      width: 150px;
+      height: auto;
+    }
+    
+    /* Bouncing character style */
+    .bouncing {
+      position: absolute;
+      transition: none;
+      transform-origin: center center;
+    }
+    
+    /* Container for animated messages, displayed below the ellipse */
+    #messageDisplay {
+      position: absolute;
+      top: 80%;
+      left: 75%;
+      transform: translateX(-50%);
+      font-size: 3em;
+      text-align: center;
+      color: #000;
+      z-index: 5;
+      white-space: nowrap;
+      padding: 0 10px;
+    }
+    
+    /* Visitor name – bottom right corner */
+    #visitorName {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 1.5em;
+      color: #000;
+      z-index: 1001;
+    }
+    
+    /* Mobile adjustments */
+    @media (max-width: 600px) {
+      .hysteric {
+        font-size: 2em;
+      }
+      .silly {
+        font-size: 1.4em;
+      }
+      #visitorName {
+        font-size: 1.2em;
+      }
+      #messageDisplay {
+        font-size: 2em;
+        padding: 0 5%;
+      }
+      .mask {
+        width: 70vw;
+        clip-path: ellipse(70% 25% at 100% 50%);
+      }
+      .character {
+        left: 85%;
+      }
+      #messageDisplay {
+        left: 85%;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <a href="https://www.instagram.com/bogdansekalski" target="_blank">
-      <img src="doublecolor.jpg" alt="Logo" class="logo">
-    </a>
+  <!-- Top left text -->
+  <div class="top-left-text">
+    <div class="hysteric">hysteric web</div>
+    <div class="silly">SILLY WEB SOLUTIONS</div>
   </div>
   
-  <h1>bogdan sėkalski</h1>
+  <!-- Ellipse mask with background -->
+  <div class="mask">
+    <div class="bg" id="bg"></div>
+  </div>
   
-  <table class="events-table">
-    <thead>
-      <tr>
-        <th colspan="2">UPCOMING EVENTS</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>09/04/25 WARSZAWA</td>
-        <td>
-          <a href="https://www.facebook.com/events/481479724902713/?post_id=482209804829705&acontext=%7B%22event_action_history%22%3A%5B%7B%22surface%22%3A%22home%22%7D%2C%7B%22mechanism%22%3A%22attachment_media%22%2C%22surface%22%3A%22newsfeed%22%7D%5D%2C%22ref_notif_type%22%3Anull%7D" target="_blank">EVENT</a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Container for animated messages -->
+  <div id="messageDisplay"></div>
+  
+  <!-- Character (2.png) with animation -->
+  <div class="character" id="character">
+    <img src="2.png" id="characterImg" alt="Postać"
+         draggable="false"
+         ondragstart="return false;"
+         oncontextmenu="return false;"
+         style="-webkit-user-drag: none;">
+  </div>
+  
+  <!-- Visitor name -->
+  <div id="visitorName"></div>
+  
+  <script>
+    // Prevent dragging and context menu for character image (2.png)
+    const characterImg = document.getElementById('characterImg');
+    characterImg.addEventListener('dragstart', e => e.preventDefault());
+    characterImg.addEventListener('contextmenu', e => e.preventDefault());
+    
+    // --- Background and character animation ---
+    let windowWidth = window.innerWidth;
+    let windowHeight = window.innerHeight;
+    const bg = document.getElementById('bg');
+    let offsetX = 0, offsetY = 0;
+    let speedX = 0, speedY = 0;
+    let lastFrameTime = Date.now();
+    let lastMouseTime = Date.now();
+    
+    function animateBackground() {
+      const now = Date.now();
+      const deltaTime = now - lastFrameTime;
+      lastFrameTime = now;
+      
+      if (now - lastMouseTime > 500) {
+        const decayFactor = Math.pow(0.5, deltaTime / 1000);
+        speedX *= decayFactor;
+        speedY *= decayFactor;
+        if (Math.abs(speedX) < 0.01) speedX = 0;
+        if (Math.abs(speedY) < 0.01) speedY = 0;
+      }
+      
+      offsetX += speedX;
+      offsetY += speedY;
+      bg.style.backgroundPosition = offsetX + 'px ' + offsetY + 'px';
+      requestAnimationFrame(animateBackground);
+    }
+    requestAnimationFrame(animateBackground);
+    
+    // Character animation (2.png) following pointer/mouse position
+    const character = document.getElementById('character');
+    let targetX = windowWidth * 0.75;
+    let currentX = windowWidth * 0.75;
+    let animationInterval = null;
+    let isAnimating = false;
+    
+    function animateCharacter() {
+      currentX += (targetX - currentX) * 0.1;
+      character.style.left = currentX + 'px';
+      requestAnimationFrame(animateCharacter);
+    }
+    requestAnimationFrame(animateCharacter);
+    
+    function startCharacterAnimation() {
+      isAnimating = true;
+      let toggle = false;
+      animationInterval = setInterval(() => {
+        toggle = !toggle;
+        characterImg.src = toggle ? '3.png' : '4.png';
+        if (Date.now() - lastMouseTime > 200) {
+          stopCharacterAnimation();
+        }
+      }, 70);
+    }
+    
+    function stopCharacterAnimation() {
+      clearInterval(animationInterval);
+      animationInterval = null;
+      isAnimating = false;
+      characterImg.src = '2.png';
+    }
+    
+    // Update background movement using pointer/mouse position
+    function updateBackground(e) {
+      if (!isDragging) {
+        const pointerX = e.clientX;
+        const pointerY = e.clientY;
+        const deltaX = (pointerX - windowWidth / 2) / (windowWidth / 2);
+        const deltaY = (pointerY - windowHeight / 2) / (windowHeight / 2);
+        const maxSpeed = 20;
+        speedX = deltaX * maxSpeed;
+        speedY = deltaY * maxSpeed;
+        targetX = pointerX;
+        lastMouseTime = Date.now();
+        if (!isAnimating && !isBouncing) {
+           startCharacterAnimation();
+        }
+      }
+    }
+    document.addEventListener('pointermove', updateBackground);
+    document.addEventListener('mousemove', updateBackground);
+    
+    // --- Grabbable and Throwable Character ---
+    let isDragging = false;
+    let isBouncing = false;
+    let bouncingCharacter = null;
+    let bounceVelocityX = 0;
+    let bounceVelocityY = 0;
+    const GRAVITY = 0.5;
+    const BOUNCE_DAMPING = 0.95;
+    let rotationAngle = 0;
+    const ROTATION_SPEED = 5;
+    let thrownTime = 0;
+    let thrownPosX = 0, thrownPosY = 0, thrownWidth = 0, thrownHeight = 0;
+    
+    function createBouncingCharacter(e) {
+      const characterImg = document.getElementById('characterImg');
+      bouncingCharacter = characterImg.cloneNode(true);
+      bouncingCharacter.id = 'bouncingCharacter';
+      bouncingCharacter.classList.add('bouncing');
+      const rect = characterImg.getBoundingClientRect();
+      thrownPosX = rect.left;
+      thrownPosY = rect.top;
+      thrownWidth = rect.width;
+      thrownHeight = rect.height;
+      rotationAngle = 0;
+      bouncingCharacter.style.position = 'absolute';
+      bouncingCharacter.style.zIndex = '1000';
+      bouncingCharacter.style.width = thrownWidth + "px";
+      bouncingCharacter.style.height = thrownHeight + "px";
+      characterImg.style.visibility = 'hidden';
+      bouncingCharacter.style.transform = "translate(" + thrownPosX + "px, " + thrownPosY + "px) rotate(0deg)";
+      document.body.appendChild(bouncingCharacter);
+    }
+    
+    function startDrag(e) {
+      if (!e.target.closest('#character')) return;
+      e.preventDefault();
+      if (isBouncing) return;
+      stopCharacterAnimation();
+      createBouncingCharacter(e);
+      isDragging = true;
+      lastDragX = e.clientX;
+      lastDragY = e.clientY;
+      lastDragTime = Date.now();
+    }
+    
+    function duringDrag(e) {
+      if (!isDragging || !bouncingCharacter) return;
+      const now = Date.now();
+      const deltaTime = now - lastDragTime;
+      if (deltaTime > 0) {
+        bounceVelocityX = ((e.clientX - lastDragX) / deltaTime) * 8;
+        bounceVelocityY = ((e.clientY - lastDragY) / deltaTime) * 8;
+      }
+      const rect = bouncingCharacter.getBoundingClientRect();
+      thrownPosX = e.clientX - rect.width / 2;
+      thrownPosY = e.clientY - rect.height / 2;
+      rotationAngle = 0;
+      bouncingCharacter.style.transform = "translate(" + thrownPosX + "px, " + thrownPosY + "px) rotate(0deg)";
+      lastDragX = e.clientX;
+      lastDragY = e.clientY;
+      lastDragTime = now;
+    }
+    
+    function endDrag(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      thrownTime = Date.now();
+      isBouncing = true;
+      requestAnimationFrame(updateBounce);
+    }
+    
+    function updateBounce() {
+      if (!bouncingCharacter) return;
+      
+      if (thrownPosY + thrownHeight < window.innerHeight) {
+        rotationAngle += ROTATION_SPEED;
+      }
+      
+      let newPosX = thrownPosX + bounceVelocityX;
+      let newPosY = thrownPosY + bounceVelocityY;
+      
+      if (newPosX < 0) {
+        newPosX = 0;
+        bounceVelocityX *= -BOUNCE_DAMPING;
+      } else if (newPosX + thrownWidth > window.innerWidth) {
+        newPosX = window.innerWidth - thrownWidth;
+        bounceVelocityX *= -BOUNCE_DAMPING;
+      }
+      
+      if (newPosY < 0) {
+        newPosY = 0;
+        bounceVelocityY *= -BOUNCE_DAMPING;
+      }
+      
+      if (newPosY + thrownHeight > window.innerHeight) {
+        newPosY = window.innerHeight - thrownHeight;
+        bounceVelocityY *= -BOUNCE_DAMPING;
+      }
+      
+      bounceVelocityY += GRAVITY;
+      bounceVelocityX *= 0.99;
+      bounceVelocityY *= 0.99;
+      
+      thrownPosX = newPosX;
+      thrownPosY = newPosY;
+      bouncingCharacter.style.transform = "translate(" + thrownPosX + "px, " + thrownPosY + "px) rotate(" + rotationAngle + "deg)";
+      
+      if (Date.now() - thrownTime >= 4000 &&
+          Math.abs(bounceVelocityX) < 0.5 && Math.abs(bounceVelocityY) < 0.5) {
+        stopBouncing();
+        return;
+      }
+      
+      requestAnimationFrame(updateBounce);
+    }
+    
+    function stopBouncing() {
+      if (bouncingCharacter) {
+        document.body.removeChild(bouncingCharacter);
+        bouncingCharacter = null;
+      }
+      characterImg.style.visibility = 'visible';
+      isBouncing = false;
+    }
+    
+    characterImg.addEventListener('pointerdown', startDrag);
+    document.addEventListener('pointermove', function(e) {
+      if (isDragging && bouncingCharacter) {
+        duringDrag(e);
+      }
+    });
+    document.addEventListener('pointerup', function(e) {
+      if (isDragging) {
+        endDrag(e);
+      }
+    });
+    document.addEventListener('pointercancel', function(e) {
+      if (isDragging) {
+        endDrag(e);
+      }
+    });
+    
+    // --- Random Visitor Name ---
+    const names = [
+      "Aldous", "Basil", "Crispin", "Lysander", "Octavian", "Percival", "Quentin", "Reginald", "Thaddeus", "Ulysses", "Vesper", "Winston", "Xavier", "Michael", "Zacharias",
+      "Nathan", "Beatrice", "Cordelia", "Delphine", "Evangeline", "Felicity", "Gwendolyn", "Harriet", "Isolde", "Jacqueline", "Katrina", "Lucinda", "Mirabelle", "John", "Ophelia",
+      "Błażej", "Mieczysław", "Zbigniew", "Witold", "Bronisław", "Czesław", "Lech", "Stanisław", "Wacław", "Kazimierz",
+      "Agnieszka", "Barbara", "Czesława", "Danuta", "Elżbieta", "Grażyna", "Halina", "Irena", "Jadwiga", "Krystyna", "Łucja", "Małgorzata", "Natalia", "Olga", "Patrycja",
+      "Alek", "Isadora", "Chris", "Maddie", "Guinevere", "Rowena", "Imogen", "Selene", "Theodora", "Valentina", "Opalina", "Marigold", "Julia", "Maksio"
+    ];
+    const randomName = names[Math.floor(Math.random() * names.length)];
+    document.getElementById("visitorName").innerText = "potential visitor name: " + randomName;
+  </script>
 </body>
 </html>
