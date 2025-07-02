@@ -17,14 +17,22 @@
       touch-action: none;
     }
     
-    /* Top left text */
-    .top-left-text {
+    /* Top section with title and navigation */
+    .top-section {
       position: absolute;
       top: 20px;
       left: 20px;
+      right: 20px;
       z-index: 1000;
       font-family: "Apple Garamond", serif;
       color: #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    .top-left-text {
+      flex: 1;
     }
     
     .hysteric {
@@ -40,6 +48,20 @@
       margin: 0;
       line-height: 1;
       margin-top: 5px;
+    }
+    
+    /* Navigation button */
+    .nav-button {
+      font-family: "Apple Garamond", serif;
+      font-size: 2em;
+      color: #000;
+      text-decoration: none;
+      transition: text-decoration 0.2s ease;
+      margin-top: 5px;
+    }
+    
+    .nav-button:hover {
+      text-decoration: underline;
     }
     
     /* Ellipse mask – shows content only inside the ellipse, centered */
@@ -114,6 +136,16 @@
     
     /* Mobile adjustments */
     @media (max-width: 600px) {
+      .top-section {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .nav-button {
+        margin-top: 10px;
+        font-size: 1.8em;
+      }
+      
       .hysteric {
         font-size: 2em;
       }
@@ -141,10 +173,13 @@
   </style>
 </head>
 <body>
-  <!-- Top left text -->
-  <div class="top-left-text">
-    <div class="hysteric">hysteric web</div>
-    <div class="silly">SILLY WEB SOLUTIONS</div>
+  <!-- Top section with title and navigation -->
+  <div class="top-section">
+    <div class="top-left-text">
+      <div class="hysteric">hysteric web</div>
+      <div class="silly">SILLY WEB SOLUTIONS</div>
+    </div>
+    <a href="tattoo.html" class="nav-button">1</a>
   </div>
   
   <!-- Ellipse mask with background -->
@@ -400,7 +435,7 @@
     // --- Random Visitor Name ---
     const names = [
       "Gustaw", "Basil", "Crispin", "Lysander", "Octavian", "Percival", "Quentin", "Reginald", "Thaddeus", "Ulysses", "Vesper", "Winston", "Xavier", "Michael", "Zacharias",
-      "Nathan", "Beatrice", "Cordelia", "Delphine", "Evangeline", "Felicity", "Gwendolyn", "Harriet", "Isolde", "Jacqueline", "Katrina", "Lucinda", "Mirabelle", "John", "Ophelia",
+      "Tymek", "Beatrice", "Cordelia", "Delphine", "Evangeline", "Felicity", "Gwendolyn", "Harriet", "Isolde", "Jacqueline", "Katrina", "Lucinda", "Mirabelle", "John", "Ophelia",
       "Błażej", "Mieczysław", "Zbigniew", "Witold", "Bronisław", "Czesław", "Lech", "Stanisław", "Wacław", "Kazimierz",
       "Agnieszka", "Barbara", "Czesława", "Danuta", "Elżbieta", "Grażyna", "Halina", "Irena", "Jadwiga", "Krystyna", "Łucja", "Małgorzata", "Natalia", "Olga", "Patrycja",
       "Alek", "Isadora", "Chris", "Maddie", "Guinevere", "Rowena", "Imogen", "Selene", "Theodora", "Valentina", "Opalina", "Marigold", "Julia", "Maksio"
